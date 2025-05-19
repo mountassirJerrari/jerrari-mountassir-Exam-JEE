@@ -1,0 +1,33 @@
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">Login</h4>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" formControlName="email"
+                            placeholder="Enter your email" [ngClass]="{'is-invalid': submitted && f['email'].errors}">
+                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                            <div *ngIf="f['email'].errors['required']">Email is required</div>
+                            <div *ngIf="f['email'].errors['email']">Please enter a valid email</div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary" [disabled]="loading">
+                            <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                            Login
+                        </button>
+                    </div>
+                </form>
+
+                <div *ngIf="error" class="alert alert-danger mt-3">
+                    {{ error }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
