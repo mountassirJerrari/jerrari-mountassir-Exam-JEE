@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]]
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
@@ -45,15 +46,17 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authService.login(this.f['email'].value)
-      .subscribe({
-        next: () => {
-          this.router.navigate(['/dashboard']);
-        },
-        error: error => {
-          this.error = 'Invalid email or server error';
-          this.loading = false;
-        }
-      });
+    this.authService.login(
+      this.f['username'].value,
+      this.f['password'].value
+    ).subscribe({
+      next: () => {
+        this.router.navigate(['/dashboard']);
+      },
+      error: error => {
+        this.error = 'Invalid credentials or server error';
+        this.loading = false;
+      }
+    });
   }
 }
